@@ -1,5 +1,3 @@
-
-```yaml
 # Basic AD9833 Function Generator Example
 # Minimal configuration for basic waveform generation
 
@@ -9,8 +7,14 @@ substitutions:
 
 esphome:
   name: ${device_name}
-  platform: ESP32
+
+esp32:
+#  board: heltec_wifi_kit_32
   board: esp32dev
+#  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
+
 
 wifi:
   ssid: !secret wifi_ssid
@@ -73,4 +77,3 @@ button:
     name: "Reset Generator"
     on_press:
       - lambda: id(sig_gen)->reset();
-```

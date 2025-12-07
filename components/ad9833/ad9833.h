@@ -1,4 +1,4 @@
-# ad9833.h
+//# ad9833.h
 #pragma once
 
 #include "esphome/core/component.h"

@@ -1,6 +1,3 @@
-## File: docs/wiring.md
-
-```markdown
 # Wiring Guide
 
 ## Overview
@@ -232,7 +229,3 @@ MCP41010 PW0 ──┬─── 1kΩ resistor ──→ Output
 - [MCP41010 Datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/11195c.pdf)
 - [ESP32 Pinout Reference](https://randomnerdtutorials.com/esp32-pinout-reference-gpios/)
 - [XPT2046 Touch Controller Info](https://github.com/PaulStoffregen/XPT2046_Touchscreen)
-```
-
----
-

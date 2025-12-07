@@ -1,6 +1,5 @@
 ## File: examples/amplitude-control.yaml
 
-```yaml
 # AD9833 with MCP41010 Amplitude Control Example
 # Adds digital potentiometer for amplitude adjustment
 
@@ -10,8 +9,13 @@ substitutions:
 
 esphome:
   name: ${device_name}
-  platform: ESP32
+
+esp32:
+#  board: heltec_wifi_kit_32
   board: esp32dev
+#  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
 
 wifi:
   ssid: !secret wifi_ssid
@@ -108,7 +112,4 @@ button:
             5.0,    // 5 Hz modulation
             0.5     // 50% depth
           );
-```
-
----
 

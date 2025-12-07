@@ -1,6 +1,3 @@
-## File: docs/calibration.md
-
-```markdown
 # Calibration Guide
 
 ## Touchscreen Calibration
@@ -262,7 +259,4 @@ To improve timing:
 - **Multimeter**: For voltage measurements
 - **Spectrum Analyzer**: For THD measurements (optional)
 - **Logic Analyzer**: For SPI debugging (optional)
-```
-
----
 

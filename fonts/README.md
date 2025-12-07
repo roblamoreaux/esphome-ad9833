@@ -1,6 +1,4 @@
 ## File: fonts/README.md
-
-```markdown
 # Fonts Directory
 
 This directory should contain the TrueType font files used by the display.
@@ -68,5 +66,4 @@ Ensure you comply with font licenses:
 - **GPL**: Free but requires sharing modifications
 
 **Note**: Arial is a commercial font by Microsoft. Use Liberation Sans or Roboto as free alternatives.
-```
 
