@@ -1,10 +1,9 @@
-```markdown
-![GitHub release](https://img.shields.io/github/v/release/yourusername/esphome-ad9833)
-![GitHub](https://img.shields.io/github/license/yourusername/esphome-ad9833)
-![GitHub stars](https://img.shields.io/github/stars/yourusername/esphome-ad9833)
-![GitHub issues](https://img.shields.io/github/issues/yourusername/esphome-ad9833)
+![GitHub release](https://img.shields.io/github/v/release/roblamoreaux/esphome-ad9833)
+![GitHub](https://img.shields.io/github/license/roblamoreaux/esphome-ad9833)
+![GitHub stars](https://img.shields.io/github/stars/roblamoreaux/esphome-ad9833)
+![GitHub issues](https://img.shields.io/github/issues/roblamoreaux/esphome-ad9833)
 ![ESPHome](https://img.shields.io/badge/ESPHome-2024.11+-green.svg)
-```
+
 # ESPHome AD9833 Function Generator
 
 A complete ESPHome external component for the AD9833 programmable waveform generator with MCP41010 digital potentiometer amplitude control, featuring an advanced touchscreen interface for ESP32.
@@ -87,7 +86,7 @@ Add to your ESPHome YAML configuration:
 
 ```yaml
 external_components:
-  - source: github://yourusername/esphome-ad9833
+  - source: github://roblamoreaux/esphome-ad9833
     components: [ ad9833 ]
 ```
 
@@ -95,7 +94,7 @@ external_components:
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/esphome-ad9833.git
+git clone https://github.com/roblamoreaux/esphome-ad9833.git
 ```
 
 2. Copy to your ESPHome configuration:
@@ -455,9 +454,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📖 [Documentation](https://github.com/yourusername/esphome-ad9833/wiki)
-- 🐛 [Issue Tracker](https://github.com/yourusername/esphome-ad9833/issues)
-- 💬 [Discussions](https://github.com/yourusername/esphome-ad9833/discussions)
+- 📖 [Documentation](https://github.com/roblamoreaux/esphome-ad9833/wiki)
+- 🐛 [Issue Tracker](https://github.com/roblamoreaux/esphome-ad9833/issues)
+- 💬 [Discussions](https://github.com/roblamoreaux/esphome-ad9833/discussions)
 - 🏠 [ESPHome Community](https://community.home-assistant.io/)
 
 ## Changelog

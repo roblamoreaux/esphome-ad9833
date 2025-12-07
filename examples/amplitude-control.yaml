@@ -23,7 +23,7 @@ ota:
 
 # External component
 external_components:
-  - source: github://yourusername/esphome-ad9833
+  - source: github://roblamoreaux/esphome-ad9833
     components: [ ad9833 ]
 
 # SPI Bus
