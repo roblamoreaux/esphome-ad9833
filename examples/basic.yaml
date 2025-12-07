@@ -23,6 +23,9 @@ wifi:
 logger:
 api:
 ota:
+  - platform: esphome
+    id: ota_esphome
+
 
 # External component
 external_components:

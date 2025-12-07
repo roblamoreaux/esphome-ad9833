@@ -42,10 +42,13 @@ class MCP41010 {
   static const uint8_t CMD_WRITE = 0x11;
   static const uint8_t CMD_SHUTDOWN = 0x21;
 };
-
+BIT_ORDER	
+CLOCK_POLARITY	
+CLOCK_PHASE	
+DATA_RATE
 class AD9833 : public Component,
                public spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_HIGH,
-                                     spi::CLOCK_PHASE_SECOND_EDGE, spi::DATA_RATE_1MHZ> {
+                                     spi::CLOCK_PHASE_TRAILING, spi::DATA_RATE_1MHZ> {
  public:
   void setup() override;
   void loop() override;
