@@ -1,12 +1,9 @@
-## File: examples/amplitude-control.yaml
-
-# AD9833 with MCP41010 Amplitude Control Example
-# Adds digital potentiometer for amplitude adjustment
+# Basic AD9833 Function Generator Example
+# Minimal configuration for basic waveform generation
 
 substitutions:
-  device_name: ad9833-amplitude
-  friendly_name: "AD9833 Amplitude Control"
-
+  device_name: ad9833-basic
+  friendly_name: "AD9833 Basic"
 esphome:
   name: ${device_name}
 
@@ -14,12 +11,14 @@ esp32:
 #  board: heltec_wifi_kit_32
   board: esp32dev
 #  board: esp32-c3-devkitm-1
+
   framework:
     type: esp-idf
 
+
 wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
+  ssid: !secret my_wifi_ssid
+  password: !secret my_wifi_pw
 
 logger:
 api:
@@ -27,10 +26,10 @@ ota:
   - platform: esphome
     id: ota_esphome
 
-
 # External component
 external_components:
-  - source: github://roblamoreaux/esphome-ad9833
+  #- source: github://roblamoreaux/esphome-ad9833@dev 
+  - source: ./include/components/ 
     components: [ ad9833 ]
 
 # SPI Bus
@@ -38,19 +37,19 @@ spi:
   clk_pin: GPIO18
   mosi_pin: GPIO23
 
-# AD9833 with MCP41010
+# AD9833 Function Generator
 ad9833:
   id: sig_gen
   cs_pin: GPIO5
-  digipot_cs_pin: GPIO15  # MCP41010 CS pin
   frequency: 1000.0
   waveform: SINE
-  amplitude: 50.0
+  digipot_cs_pin: GPIO15  # Add MCP41010
 
-# Controls
+# Control via Home Assistant
 number:
   - platform: template
     name: "Frequency"
+    id: frequency
     min_value: 10
     max_value: 20000
     step: 1
@@ -59,18 +58,16 @@ number:
     optimistic: true
     set_action:
       - lambda: id(sig_gen)->set_frequency(x);
-
+#number:
   - platform: template
-    name: "Amplitude"
+    name: "Signal Amplitude"
     min_value: 0
     max_value: 100
     step: 1
-    initial_value: 50
     unit_of_measurement: "%"
-    optimistic: true
     set_action:
       - lambda: id(sig_gen)->set_amplitude(x);
-
+      
 select:
   - platform: template
     name: "Waveform"
@@ -88,31 +85,11 @@ select:
           else if (x == "Square") waveform = 2;
           id(sig_gen)->set_waveform((ad9833::WaveformType)waveform);
 
-# Quick amplitude presets
 button:
   - platform: template
-    name: "Low Signal (10%)"
-    on_press:
-      - lambda: id(sig_gen)->set_amplitude(10);
-
-  - platform: template
-    name: "Medium Signal (50%)"
-    on_press:
-      - lambda: id(sig_gen)->set_amplitude(50);
-
-  - platform: template
-    name: "High Signal (90%)"
-    on_press:
-      - lambda: id(sig_gen)->set_amplitude(90);
-
-# AM Modulation example
-  - platform: template
-    name: "Start AM Modulation"
+    name: "Reset Generator"
     on_press:
       - lambda: |-
-          id(sig_gen)->set_modulation(
-            ad9833::MOD_AM,
-            5.0,    // 5 Hz modulation
-            0.5     // 50% depth
-          );
+          id(sig_gen)->reset();
+          id(sig_gen)->set_amplitude(1);
 

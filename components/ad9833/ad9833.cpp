@@ -28,9 +28,13 @@ static const uint16_t CTRL_DIV2 = 0x0008;
 static const uint16_t CTRL_MODE = 0x0002;
 
 // MCP41010 Implementation
-MCP41010::MCP41010(spi::SPIComponent *parent, GPIOPin *cs_pin) 
+MCP41010::MCP41010(spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_HIGH,
+    spi::CLOCK_PHASE_LEADING, spi::DATA_RATE_1MHZ> *parent, 
+    GPIOPin *cs_pin) 
     : parent_(parent), cs_pin_(cs_pin) {}
-
+//MCP41010::MCP41010(spi::SPIComponent *parent, GPIOPin *cs_pin) 
+//    : parent_(parent), cs_pin_(cs_pin) {}
+	
 void MCP41010::setup() {
   this->cs_pin_->setup();
   this->cs_pin_->digital_write(true);
@@ -67,7 +71,8 @@ void AD9833::setup() {
   
   // Setup digital potentiometer if configured
   if (this->digipot_cs_pin_ != nullptr) {
-    this->digipot_ = new MCP41010(this->parent_, this->digipot_cs_pin_);
+    this->digipot_ = new MCP41010(this, this->digipot_cs_pin_);
+    //this->digipot_ = new MCP41010(this->parent_, this->digipot_cs_pin_);
     this->digipot_->setup();
     this->mod_use_amplitude_ = true;
     ESP_LOGCONFIG(TAG, "MCP41010 digital potentiometer configured");

@@ -5,6 +5,10 @@
 #include "esphome/components/spi/spi.h"
 #include <vector>
 
+#ifndef PI
+#define PI  (3.14159f)
+#endif
+
 namespace esphome {
 namespace ad9833 {
 
@@ -28,14 +32,15 @@ enum ModulationType {
 
 class MCP41010 {
  public:
-  MCP41010(spi::SPIComponent *parent, GPIOPin *cs_pin);
+  MCP41010(spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_HIGH,
+             spi::CLOCK_PHASE_LEADING, spi::DATA_RATE_1MHZ> *parent, GPIOPin *cs_pin);
   void setup();
   void set_wiper(uint8_t value);  // 0-255
   void set_amplitude(float percent);  // 0.0-100.0
   uint8_t get_wiper() const { return current_wiper_; }
   
  protected:
-  spi::SPIComponent *parent_;
+  spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_HIGH,spi::CLOCK_PHASE_LEADING, spi::DATA_RATE_1MHZ>  *parent_;
   GPIOPin *cs_pin_;
   uint8_t current_wiper_{128};
   
@@ -44,8 +49,7 @@ class MCP41010 {
 };
 
 class AD9833 : public Component,
-               public spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_HIGH,
-                                     spi::CLOCK_PHASE_SECOND_EDGE, spi::DATA_RATE_1MHZ> {
+               public spi::SPIDevice<spi::BIT_ORDER_MSB_FIRST, spi::CLOCK_POLARITY_HIGH,spi::CLOCK_PHASE_LEADING, spi::DATA_RATE_1MHZ> {
  public:
   void setup() override;
   void loop() override;
