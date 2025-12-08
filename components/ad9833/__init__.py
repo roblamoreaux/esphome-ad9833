@@ -50,7 +50,7 @@ CONF_FSK_STATE = "fsk_state"
 CONFIG_SCHEMA = (
     cv.Schema({
         cv.GenerateID(): cv.declare_id(AD9833),
-        cv.Optional(CONF_FREQUENCY, default=1000.0): cv.float_range(min=0.0, max=12500000.0),
+        cv.Optional(CONF_FREQUENCY, default=2000.0): cv.float_range(min=0.0, max=12500000.0),
         cv.Optional(CONF_WAVEFORM, default="SINE"): cv.enum(WAVEFORMS, upper=True),
         cv.Optional(CONF_PHASE, default=0.0): cv.float_range(min=0.0, max=360.0),
         cv.Optional(CONF_DIGIPOT_CS_PIN): pins.gpio_output_pin_schema,

@@ -1,0 +1,95 @@
+# Basic AD9833 Function Generator Example
+# Minimal configuration for basic waveform generation
+
+substitutions:
+  device_name: ad9833-basic
+  friendly_name: "AD9833 Basic"
+esphome:
+  name: ${device_name}
+
+esp32:
+#  board: heltec_wifi_kit_32
+  board: esp32dev
+#  board: esp32-c3-devkitm-1
+
+  framework:
+    type: esp-idf
+
+
+wifi:
+  ssid: !secret my_wifi_ssid
+  password: !secret my_wifi_pw
+
+logger:
+api:
+ota:
+  - platform: esphome
+    id: ota_esphome
+
+# External component
+external_components:
+  #- source: github://roblamoreaux/esphome-ad9833@dev 
+  - source: ./include/components/ 
+    components: [ ad9833 ]
+
+# SPI Bus
+spi:
+  clk_pin: GPIO18
+  mosi_pin: GPIO23
+
+# AD9833 Function Generator
+ad9833:
+  id: sig_gen
+  cs_pin: GPIO5
+  frequency: 1000.0
+  waveform: SINE
+  digipot_cs_pin: GPIO15  # Add MCP41010
+
+# Control via Home Assistant
+number:
+  - platform: template
+    name: "Frequency"
+    id: frequency
+    min_value: 10
+    max_value: 20000
+    step: 1
+    initial_value: 1000
+    unit_of_measurement: "Hz"
+    optimistic: true
+    set_action:
+      - lambda: id(sig_gen)->set_frequency(x);
+#number:
+  - platform: template
+    name: "Signal Amplitude"
+    min_value: 0
+    max_value: 100
+    step: 1
+    unit_of_measurement: "%"
+    set_action:
+      - lambda: id(sig_gen)->set_amplitude(x);
+      
+select:
+  - platform: template
+    name: "Waveform"
+    options:
+      - "Sine"
+      - "Triangle"
+      - "Square"
+    initial_option: "Sine"
+    optimistic: true
+    set_action:
+      - lambda: |-
+          int waveform = 0;
+          if (x == "Sine") waveform = 0;
+          else if (x == "Triangle") waveform = 1;
+          else if (x == "Square") waveform = 2;
+          id(sig_gen)->set_waveform((ad9833::WaveformType)waveform);
+
+button:
+  - platform: template
+    name: "Reset Generator"
+    on_press:
+      - lambda: |-
+          id(sig_gen)->reset();
+          id(sig_gen)->set_amplitude(1);
+
